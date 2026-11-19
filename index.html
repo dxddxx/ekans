@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>EKANS — reverse snake</title>
+  <meta name="description" content="You plant the apples. The snake hunts them. Kill it with its own bad ideas.">
+  <meta name="theme-color" content="#140e0b">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="app">
+    <header class="top">
+      <div class="brand">
+        <p class="kicker">
+          <svg class="apple-ico" viewBox="0 0 16 16" aria-hidden="true">
+            <circle cx="8" cy="9.2" r="4.2" fill="#ef3b2d"/>
+            <path d="M8 4.2c.6-1.6 2.6-1.3 2.3.4" fill="none" stroke="#6b3a22" stroke-width="1" stroke-linecap="round"/>
+            <ellipse cx="10.6" cy="4.6" rx="1.6" ry=".8" fill="#c6e56a" transform="rotate(-28 10.6 4.6)"/>
+          </svg>
+          Reverse serpent
+        </p>
+        <h1 class="wordmark">Ekans</h1>
+      </div>
+      <p class="deck">Plant the apple. The snake hunts it, and a bad idea does the rest.</p>
+    </header>
+
+    <div class="layout">
+      <section class="stage" aria-label="Garden">
+        <div class="frame">
+          <div class="bezel-top">
+            <span id="bezel-level">01  Tunnel Vision</span>
+            <span class="bezel-meta">
+              <button type="button" class="bezel-btn" id="bezel-restart">Restart</button>
+              <span id="bezel-size">15 × 15</span>
+              <span id="lights" class="lights wait" aria-hidden="true"><i></i><i></i><i></i></span>
+            </span>
+          </div>
+          <div class="screen" id="screen" data-state="arm">
+            <div class="board" id="board">
+              <div class="grid" id="grid" role="grid" aria-label="Garden board"></div>
+              <div class="sprites" id="sprites" aria-hidden="true"></div>
+            </div>
+            <div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="overlay-title" hidden>
+              <p class="overlay-kicker" id="overlay-kicker">You win</p>
+              <h2 id="overlay-title">Dead snake.</h2>
+              <p id="overlay-cause">It bit itself.</p>
+              <dl class="stats overlay-stats">
+                <div><dt>Apples</dt><dd id="ov-apples">0</dd></div>
+                <div><dt>Length</dt><dd id="ov-length">3</dd></div>
+                <div><dt>Turns</dt><dd id="ov-turns">0</dd></div>
+                <div><dt>Time</dt><dd id="ov-time">0:00</dd></div>
+              </dl>
+              <p class="overlay-extra" id="overlay-extra"></p>
+              <div class="overlay-actions">
+                <button type="button" class="btn primary" id="overlay-again">Run it back</button>
+                <button type="button" class="btn" id="overlay-next" hidden>Next snake</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <ul class="legend">
+          <li><i class="key apple-key"></i> Apple</li>
+          <li><i class="key ghost-key"></i> Queued</li>
+          <li><i class="key step-key"></i> Next step</li>
+          <li><i class="key fatal-key"></i> Fatal step</li>
+        </ul>
+        <p class="status" id="status" aria-live="polite"></p>
+        <p class="note" id="note" hidden></p>
+      </section>
+
+      <aside class="side">
+        <section class="panel" aria-labelledby="levels-label">
+          <h2 id="levels-label">Snakes</h2>
+          <div id="level-list" class="level-list" role="group" aria-label="Snakes"></div>
+          <p class="tell" id="tell"></p>
+        </section>
+
+        <section class="panel" aria-labelledby="stats-label">
+          <h2 id="stats-label">This hunt</h2>
+          <dl class="stats">
+            <div><dt>Apples</dt><dd id="stat-apples">0</dd></div>
+            <div><dt>Length</dt><dd id="stat-length">3</dd></div>
+            <div><dt>Turns</dt><dd id="stat-turns">0</dd></div>
+            <div><dt>Time</dt><dd id="stat-time">0:00</dd></div>
+          </dl>
+          <p class="escape-label" id="escape-label"></p>
+          <div class="pips" id="pips" aria-hidden="true"></div>
+          <p class="best-line" id="best-line"></p>
+        </section>
+
+        <section class="panel" aria-labelledby="controls-label">
+          <h2 id="controls-label">Pace</h2>
+          <label class="speed">
+            <span class="speed-label">Speed <strong id="speed-readout">6</strong><span class="per">/ sec</span></span>
+            <input id="speed" type="range" min="2" max="14" step="1" value="6" aria-label="Snake speed in squares per second">
+          </label>
+          <div class="btn-row">
+            <button type="button" class="btn primary" id="restart">Restart</button>
+            <button type="button" class="btn" id="mute" aria-pressed="false">Sound on</button>
+          </div>
+        </section>
+
+        <section class="panel" aria-labelledby="how-label">
+          <h2 id="how-label">How to play</h2>
+          <ol class="how">
+            <li>Tap an empty square to plant an apple.</li>
+            <li>The snake moves on its own, one square at a time, toward that apple. It grows when it eats.</li>
+            <li>Tap ahead of time to queue the next apple. Tap that square again to clear it. With nothing queued, the snake waits and the clock stops.</li>
+            <li>Kill it on a wall or its own body before every pip fills. A full set means it escapes.</li>
+          </ol>
+          <p class="keys">Keys: 1–4 snakes, R restart, M mute, − and = speed.</p>
+        </section>
+      </aside>
+    </div>
+
+    <footer class="foot">Ekans is snake, spelled backward. The serpent moves. You only choose the bait.</footer>
+  </div>
+  <noscript>EKANS needs JavaScript. It is still just this page — nothing is sent anywhere.</noscript>
+  <script src="js/ai.js"></script>
+  <script src="js/engine.js"></script>
+  <script src="js/game.js"></script>
+</body>
+</html>
